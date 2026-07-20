@@ -1,0 +1,287 @@
+.home {
+    min-height: 100vh;
+}
+
+
+/* Hero */
+
+.hero {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 5rem 8%;
+
+    gap: 4rem;
+
+}
+
+
+.hero-content {
+
+    max-width: 600px;
+
+}
+
+
+.hero h1 {
+
+    font-size: 3.5rem;
+
+    line-height: 1.1;
+
+    margin-bottom: 1.5rem;
+
+}
+
+
+.hero p {
+
+    font-size: 1.2rem;
+
+    color: #666;
+
+    line-height: 1.6;
+
+}
+
+
+.hero-buttons {
+
+    display: flex;
+
+    gap: 1rem;
+
+    margin-top: 2rem;
+
+}
+
+
+/* Buttons */
+
+.primary-button,
+.secondary-button {
+
+    padding: 0.8rem 1.5rem;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 1rem;
+
+}
+
+
+.primary-button {
+
+    background: #111827;
+
+    color: white;
+
+    border: none;
+
+}
+
+
+.secondary-button {
+
+    background: white;
+
+    border: 1px solid #ccc;
+
+}
+
+
+/* Preview */
+
+.hero-preview {
+
+    width: 420px;
+
+}
+
+
+.analysis-card {
+
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 1rem;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+}
+
+
+.video-placeholder {
+
+    height: 240px;
+
+    background: #e5e7eb;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+.metrics {
+
+    display: flex;
+
+    justify-content: space-around;
+
+    margin-top: 1.5rem;
+
+}
+
+
+.metrics div {
+
+    text-align: center;
+
+}
+
+
+.metrics strong {
+
+    display: block;
+
+    font-size: 1.5rem;
+
+}
+
+
+.metrics span {
+
+    color: #666;
+
+}
+
+
+/* Features */
+
+.features {
+
+    padding: 4rem 8%;
+
+    text-align: center;
+
+}
+
+
+.feature-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 2rem;
+
+    margin-top: 3rem;
+
+}
+
+
+.feature-card {
+
+    background: #f9fafb;
+
+    padding: 2rem;
+
+    border-radius: 12px;
+
+    text-align: left;
+
+}
+
+
+/* Workflow */
+
+.workflow {
+
+    padding: 4rem 8%;
+
+    text-align: center;
+
+}
+
+
+.steps {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 4rem;
+
+    margin-top: 3rem;
+
+}
+
+
+.steps span {
+
+    display: inline-flex;
+
+    width: 40px;
+
+    height: 40px;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #111827;
+
+    color: white;
+
+}
+
+
+/* CTA */
+
+.cta {
+
+    text-align: center;
+
+    padding: 5rem;
+
+}
+
+
+@media(max-width:900px) {
+
+    .hero {
+
+        flex-direction: column;
+
+    }
+
+
+    .feature-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .steps {
+
+        flex-direction: column;
+
+    }
+
+}
