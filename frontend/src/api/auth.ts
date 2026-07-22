@@ -16,3 +16,16 @@ export async function login(email: string, password: string) {
 
     return response.data;
 }
+
+export async function register(email: string, password: string) {
+
+    const response = await axios.post(
+        `${API_URL}/register`,
+        {
+            email,
+            password
+        }
+    );
+
+    return response.data;
+}

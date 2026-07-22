@@ -1,11 +1,12 @@
 import { useState } from "react";
-import "./Login.css";
-import {login} from "../api/auth.ts";
+import "./Register.css";
+import {register} from "../api/auth.ts";
 
-function Login() {
+function Register() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [passComf, setPassComf] = useState("");
 
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
@@ -16,41 +17,44 @@ function Login() {
 
         setError("");
         setMessage("");
+        if (passComf != password) {
+            setError("Passwords do not match")
+        } else {
+            try {
 
-        try {
+                const response = await register(
+                    email,
+                    password,
+                );
 
-            const response = await login(
-                email,
-                password
-            );
+                console.log(response);
 
-            console.log(response);
-
-            setMessage("Login successful!");
+                setMessage("Registration successful!");
 
 
-        } catch (err) {
+            } catch (err) {
 
-            console.error(err);
+                console.error(err);
 
-            setError("Invalid email or password");
+                setError("Invalid email or password");
 
+            }
         }
     }
 
 
 
     return (
-        <div className="login-page">
+        <div className="register-page">
 
-            <div className="login-card">
+            <div className="register-card">
 
                 <h1>
                     Welcome back
                 </h1>
 
                 <p className="subtitle">
-                    Login
+                    Register
                 </p>
 
 
@@ -81,9 +85,21 @@ function Login() {
                         required
                     />
 
+                    <label>
+                        Password Confirmation
+                    </label>
+
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={passComf}
+                        onChange={(e) => setPassComf(e.target.value)}
+                        required
+                    />
+
 
                     <button type="submit">
-                        Login
+                        Register
                     </button>
 
                 </form>
@@ -99,7 +115,7 @@ function Login() {
                         {message}
                     </p>
                 )}
-                <p className="register-link"><a href = "/register">Register</a></p>
+
 
             </div>
 
@@ -108,4 +124,4 @@ function Login() {
 }
 
 
-export default Login;
+export default Register;
