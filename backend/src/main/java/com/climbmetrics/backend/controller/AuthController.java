@@ -1,72 +1,35 @@
 package com.climbmetrics.backend.controller;
 
-import com.climbmetrics.backend.entity.User;
-import com.climbmetrics.backend.repository.UserRepository;
-import com.climbmetrics.backend.service.JwtService;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.climbmetrics.backend.dto.LoginRequest;
+import com.climbmetrics.backend.dto.LoginResponse;
+import com.climbmetrics.backend.service.AuthService;
+
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final AuthService authService;
 
 
-    public AuthController(
-            UserRepository userRepository,
-            PasswordEncoder passwordEncoder
-    ){
+    public AuthController(AuthService authService) {
 
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.authService = authService;
 
     }
 
-
-
-    @PostMapping("/register")
-    public String register(
-            @RequestBody User user
-    ){
-
-        user.setPassword(
-                passwordEncoder.encode(
-                        user.getPassword()
-                )
-        );
-
-
-        userRepository.save(user);
-
-
-        return "User created";
-
-    }
 
     @PostMapping("/login")
-    public String login(
-            @RequestBody User loginRequest
-    ){
+    public LoginResponse login(
+            @RequestBody LoginRequest request
+    ) {
 
-        User user = userRepository
-                .findByEmail(loginRequest.getEmail())
-                .orElseThrow();
-
-
-        if(!passwordEncoder.matches(
-                loginRequest.getPassword(),
-                user.getPassword()
-        )){
-            throw new RuntimeException("Invalid password");
-        }
-
-
-        return "Login successful";
+        return authService.login(request);
 
     }
-
 
 }
