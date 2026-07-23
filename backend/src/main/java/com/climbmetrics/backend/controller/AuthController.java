@@ -2,6 +2,7 @@ package com.climbmetrics.backend.controller;
 
 import com.climbmetrics.backend.entity.User;
 import com.climbmetrics.backend.repository.UserRepository;
+import com.climbmetrics.backend.service.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -66,5 +67,6 @@ public class AuthController {
         return "Login successful";
 
     }
+
 
 }

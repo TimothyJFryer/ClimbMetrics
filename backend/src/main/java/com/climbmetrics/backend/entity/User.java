@@ -1,6 +1,7 @@
 package com.climbmetrics.backend.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,4 +21,14 @@ public class User {
     private String email;
 
     private String password;
+
+    private String description = "my default description";
+
+    private String boulderGrade = "V0";
+
+    private String sportGrade = "1";
+
+    private Integer totalSessions = 0;
+
+    private Integer totalClimbs = 0;
 }

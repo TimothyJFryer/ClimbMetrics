@@ -33,6 +33,8 @@ public class SecurityConfig {
                         // Anyone can register/login
                         .requestMatchers("/api/auth/**").permitAll()
 
+                        .requestMatchers("/test/**").permitAll()
+
                         // Everything else requires authentication
                         .anyRequest().authenticated()
                 );
