@@ -22,7 +22,7 @@ public class SecurityConfig {
 
         http
                 // Allow React frontend to communicate with backend
-                .cors(cors -> {})
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
                 // Disable CSRF for REST APIs
                 .csrf(csrf -> csrf.disable())

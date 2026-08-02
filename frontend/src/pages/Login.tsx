@@ -7,35 +7,33 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [error, setError] = useState("");
-    const [message, setMessage] = useState("");
-
-    async function handleSubmit(e: React.FormEvent) {
+    async function handleSubmit(
+        e: React.FormEvent
+    ) {
 
         e.preventDefault();
 
-        setError("");
-        setMessage("");
 
         try {
 
-            const response = await login(
+            const token = await login(
                 email,
                 password
             );
 
-            console.log(response);
 
-            setMessage("Login successful!");
+            console.log(
+                "Logged in:",
+                token
+            );
 
 
-        } catch (err) {
+        } catch(error) {
 
-            console.error(err);
-
-            setError("Invalid email or password");
+            console.error(error);
 
         }
+
     }
 
 
@@ -87,18 +85,6 @@ function Login() {
                     </button>
 
                 </form>
-                {error && (
-                    <p className="error">
-                        {error}
-                    </p>
-                )}
-
-
-                {message && (
-                    <p className="success">
-                        {message}
-                    </p>
-                )}
                 <p className="register-link"><a href = "/register">Register</a></p>
 
             </div>

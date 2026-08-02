@@ -8,37 +8,23 @@ function Register() {
     const [password, setPassword] = useState("");
     const [passComf, setPassComf] = useState("");
 
-    const [error, setError] = useState("");
-    const [message, setMessage] = useState("");
 
-    async function handleSubmit(e: React.FormEvent) {
+    async function handleRegister() {
 
-        e.preventDefault();
+        try {
 
-        setError("");
-        setMessage("");
-        if (passComf != password) {
-            setError("Passwords do not match")
-        } else {
-            try {
+            await register(
+                "username",
+                email,
+                password
+            );
 
-                const response = await register(
-                    email,
-                    password,
-                );
+            console.log("Account created");
 
-                console.log(response);
+        } catch(error) {
 
-                setMessage("Registration successful!");
+            console.error(error);
 
-
-            } catch (err) {
-
-                console.error(err);
-
-                setError("Invalid email or password");
-
-            }
         }
     }
 
@@ -58,7 +44,7 @@ function Register() {
                 </p>
 
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleRegister}>
 
                     <label>
                         Email
@@ -103,18 +89,6 @@ function Register() {
                     </button>
 
                 </form>
-                {error && (
-                    <p className="error">
-                        {error}
-                    </p>
-                )}
-
-
-                {message && (
-                    <p className="success">
-                        {message}
-                    </p>
-                )}
 
 
             </div>

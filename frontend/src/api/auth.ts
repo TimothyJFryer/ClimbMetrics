@@ -1,31 +1,47 @@
-import axios from "axios";
+import api from "./axios";
 
 
-const API_URL = "http://localhost:8080/api/auth";
+export async function login(
+    email: string,
+    password: string
+) {
 
-
-export async function login(email: string, password: string) {
-
-    const response = await axios.post(
-        `${API_URL}/login`,
+    const response = await api.post(
+        "/auth/login",
         {
             email,
             password
         }
     );
 
-    return response.data;
+
+    const token = response.data.token;
+
+
+    localStorage.setItem(
+        "token",
+        token
+    );
+
+
+    return token;
 }
 
-export async function register(email: string, password: string) {
+export async function register(
+    username: string,
+    email: string,
+    password: string
+) {
 
-    const response = await axios.post(
-        `${API_URL}/register`,
+    const response = await api.post(
+        "/auth/register",
         {
+            username,
             email,
             password
         }
     );
+
 
     return response.data;
 }

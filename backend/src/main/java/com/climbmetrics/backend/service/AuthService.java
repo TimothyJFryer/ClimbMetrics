@@ -2,6 +2,7 @@ package com.climbmetrics.backend.service;
 
 import com.climbmetrics.backend.dto.LoginRequest;
 import com.climbmetrics.backend.dto.LoginResponse;
+import com.climbmetrics.backend.dto.RegisterRequest;
 import com.climbmetrics.backend.entity.User;
 import com.climbmetrics.backend.repository.UserRepository;
 
@@ -64,6 +65,22 @@ public class AuthService {
 
         return new LoginResponse(token);
 
+    }
+
+    public void register(RegisterRequest request) {
+
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new RuntimeException("Email already exists");
+        }
+
+        User user = new User();
+
+        user.setEmail(request.getEmail());
+
+        // Never store plain-text passwords
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        userRepository.save(user);
     }
 
 }
