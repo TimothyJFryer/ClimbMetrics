@@ -6,6 +6,7 @@ import com.climbmetrics.backend.dto.LoginResponse;
 import com.climbmetrics.backend.dto.RegisterRequest;
 import com.climbmetrics.backend.service.AuthService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +43,8 @@ public class AuthController {
 
         authService.register(request);
 
-        return ResponseEntity.ok("User registered successfully");
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("User registered successfully");
     }
 
 }
