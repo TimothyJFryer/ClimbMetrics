@@ -4,6 +4,9 @@ import com.climbmetrics.backend.dto.LoginRequest;
 import com.climbmetrics.backend.dto.LoginResponse;
 import com.climbmetrics.backend.dto.RegisterRequest;
 import com.climbmetrics.backend.entity.User;
+import com.climbmetrics.backend.exception.IncorrectPasswordException;
+import com.climbmetrics.backend.exception.NoSuchUserException;
+import com.climbmetrics.backend.exception.UserAlreadyExistsException;
 import com.climbmetrics.backend.repository.UserRepository;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,8 +43,7 @@ public class AuthService {
         // Find user by email
         User user = userRepository
                 .findByEmail(request.getEmail())
-                .orElseThrow(() ->
-                        new RuntimeException("User not found")
+                .orElseThrow(NoSuchUserException::new
                 );
 
 
@@ -51,7 +53,7 @@ public class AuthService {
                 user.getPassword()
         )) {
 
-            throw new RuntimeException("Invalid password");
+            throw new IncorrectPasswordException();
 
         }
 
@@ -70,7 +72,7 @@ public class AuthService {
     public void register(RegisterRequest request) {
 
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RuntimeException("Email already exists");
+            throw new UserAlreadyExistsException();
         }
 
         User user = new User();
@@ -83,4 +85,7 @@ public class AuthService {
         userRepository.save(user);
     }
 
+
+
 }
+

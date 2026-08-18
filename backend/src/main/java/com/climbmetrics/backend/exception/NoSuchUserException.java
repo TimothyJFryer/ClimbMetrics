@@ -1,7 +1,7 @@
 package com.climbmetrics.backend.exception;
 
 public class NoSuchUserException extends RuntimeException {
-  public NoSuchUserException(String message) {
-    super(message);
-  }
+    public NoSuchUserException() {
+        super("No such user exists");
+    }
 }

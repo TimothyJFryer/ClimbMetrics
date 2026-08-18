@@ -1,11 +1,13 @@
 package com.climbmetrics.backend.dto;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class LoginResponse {
-
 
     private final String token;
 
+    public LoginResponse(String token) {
+        this.token = token;
+    }
 }

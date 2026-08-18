@@ -1,4 +1,6 @@
 package com.climbmetrics.backend.dto;
 
-public class ApiError {
-}
+public record ApiError(
+        String code,
+        String message
+) {}

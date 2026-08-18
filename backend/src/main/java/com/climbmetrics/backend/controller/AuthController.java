@@ -6,9 +6,15 @@ import com.climbmetrics.backend.dto.LoginResponse;
 import com.climbmetrics.backend.dto.RegisterRequest;
 import com.climbmetrics.backend.service.AuthService;
 
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.Duration;
 
 
 @RestController
@@ -25,20 +31,53 @@ public class AuthController {
 
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(
+            HttpServletResponse response) {
+
+        ResponseCookie cookie = ResponseCookie.from("accessToken", "")
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("Lax")
+                .path("/")
+                .maxAge(0)
+                .build();
+
+        response.addHeader(
+                HttpHeaders.SET_COOKIE,
+                cookie.toString()
+        );
+
+        return ResponseEntity.noContent().build();
+    }
+
 
 
     @PostMapping("/login")
-    public LoginResponse login(
-            @RequestBody LoginRequest request
+    public ResponseEntity<Object> login(
+            @Valid @RequestBody LoginRequest request,
+            HttpServletResponse response
     ) {
-        System.out.println("LOGIN ENDPOINT HIT");
-        return authService.login(request);
+
+        LoginResponse loginResponse =  authService.login(request);
+
+        ResponseCookie cookie = ResponseCookie.from("accessToken", loginResponse.getToken())
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("Lax")
+                .path("/")
+                .maxAge(Duration.ofHours(1))
+                .build();
+
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+
+        return ResponseEntity.noContent().build();
 
     }
 
     @PostMapping("/register")
     public ResponseEntity<String> register(
-            @RequestBody RegisterRequest request
+            @Valid @RequestBody RegisterRequest request
     ) {
 
         authService.register(request);
