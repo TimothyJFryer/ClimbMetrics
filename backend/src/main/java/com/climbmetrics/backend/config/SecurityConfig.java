@@ -35,6 +35,8 @@ public class SecurityConfig {
 
                         .requestMatchers("/test/**").permitAll()
 
+                        .requestMatchers("/api/profile/**").permitAll()
+
                         // Everything else requires authentication
                         .anyRequest().authenticated()
                 );

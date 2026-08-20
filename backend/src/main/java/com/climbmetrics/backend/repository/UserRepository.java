@@ -1,5 +1,6 @@
 package com.climbmetrics.backend.repository;
 
+import com.climbmetrics.backend.dto.UserProfileResponse;
 import com.climbmetrics.backend.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

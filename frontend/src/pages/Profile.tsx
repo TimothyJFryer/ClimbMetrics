@@ -1,6 +1,38 @@
 import "./Profile.css";
+import { useEffect, useState } from "react";
+import api from "../api/axios";
+
+interface UserProfile {
+    id: number;
+    email: string;
+    username: string;
+    boulder_grade: string;
+    description: string;
+    sport_grade: string;
+    total_climbs: number;
+    total_sessions: number;
+}
 
 function Profile() {
+
+    const [profile, setProfile] = useState<UserProfile | null>(null);
+
+    useEffect(() => {
+        api.get<UserProfile>(
+            "/profile?email=test@example.com"
+        )
+            .then(response => {
+                setProfile(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }, []);
+
+    if (!profile) {
+        return <p>Loading...</p>;
+    }
+
     return (
         <div className="profile-page">
 
@@ -12,11 +44,10 @@ function Profile() {
 
                 <div className="profile-info">
                     <h1>Tim Fryer</h1>
-                    <p>@timfryer</p>
+                    <p>{profile.username}</p>
                     <p>🏔️ Boulder • Sport • Birmingham, UK</p>
                     <p>
-                        Computer Science student and climbing enthusiast,
-                        working towards V8.
+                        {profile.description}
                     </p>
                 </div>
 
@@ -31,22 +62,22 @@ function Profile() {
 
                 <div className="stat-card">
                     <h3>Highest Boulder</h3>
-                    <p>V6</p>
+                    <p>{profile.boulder_grade}</p>
                 </div>
 
                 <div className="stat-card">
                     <h3>Highest Sport</h3>
-                    <p>6c+</p>
+                    <p>{profile.sport_grade}</p>
                 </div>
 
                 <div className="stat-card">
                     <h3>Total Sessions</h3>
-                    <p>48</p>
+                    <p>{profile.total_sessions}</p>
                 </div>
 
                 <div className="stat-card">
                     <h3>Total Climbs</h3>
-                    <p>1,142</p>
+                    <p>{profile.total_climbs}</p>
                 </div>
 
             </section>
