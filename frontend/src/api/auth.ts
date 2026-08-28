@@ -5,26 +5,10 @@ export async function login(
     email: string,
     password: string
 ) {
-
-    const response = await api.post(
-        "/auth/login",
-        {
-            email,
-            password
-        }
-    );
-
-
-    const token = response.data.token;
-
-
-    localStorage.setItem(
-        "token",
-        token
-    );
-
-
-    return token;
+    await api.post("/auth/login", {
+        email,
+        password
+    });
 }
 
 export async function register(

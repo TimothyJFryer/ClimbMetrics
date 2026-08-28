@@ -19,8 +19,7 @@ function Profile() {
 
     useEffect(() => {
         api.get<UserProfile>(
-            "/profile?email=test@example.com"
-        )
+            "/profile")
             .then(response => {
                 setProfile(response.data);
             })

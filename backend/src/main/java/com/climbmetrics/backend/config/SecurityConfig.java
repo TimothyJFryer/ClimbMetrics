@@ -2,12 +2,15 @@ package com.climbmetrics.backend.config;
 
 import java.util.List;
 
+import com.climbmetrics.backend.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -18,7 +21,7 @@ public class SecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
 
         http
                 // Allow React frontend to communicate with backend
@@ -27,18 +30,20 @@ public class SecurityConfig {
                 // Disable CSRF for REST APIs
                 .csrf(csrf -> csrf.disable())
 
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+
                 // Define endpoint permissions
                 .authorizeHttpRequests(auth -> auth
-
-                        // Anyone can register/login
                         .requestMatchers("/api/auth/**").permitAll()
-
                         .requestMatchers("/test/**").permitAll()
-
-                        .requestMatchers("/api/profile/**").permitAll()
-
-                        // Everything else requires authentication
                         .anyRequest().authenticated()
+                )
+
+                .addFilterBefore(
+                jwtAuthenticationFilter,
+                UsernamePasswordAuthenticationFilter.class
                 );
 
 
