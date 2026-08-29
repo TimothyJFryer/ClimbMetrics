@@ -1,7 +1,11 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import { useAuth} from "../api/AuthContext.tsx";
 
 function Navbar() {
+
+    const { isLoggedIn, logoutUser } = useAuth();
+
     return (
         <nav className="navbar">
             <div className="logo">
@@ -16,9 +20,16 @@ function Navbar() {
                 <a href="/profile">Profile</a>
             </div>
 
-            <Link to="/login" className="login-button">
-                Login
-            </Link>
+            {isLoggedIn ? (
+                <button onClick={logoutUser}>
+                    Logout
+                </button>
+            ) : (
+                <Link to="/login" className="login-button">
+                    Login
+                </Link>
+            )}
+
         </nav>
     );
 }

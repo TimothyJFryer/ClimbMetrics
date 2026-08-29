@@ -6,6 +6,7 @@ function Login() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [success, setSuccess] = useState("")
 
     async function handleSubmit(
         e: React.FormEvent
@@ -26,11 +27,12 @@ function Login() {
                 "Logged in:",
                 token
             );
-
+            setSuccess("Logged in!");
 
         } catch(error) {
 
             console.error(error);
+            setSuccess("Login failed :(")
 
         }
 
@@ -85,6 +87,9 @@ function Login() {
                     </button>
 
                 </form>
+                <p>
+                    {success}
+                </p>
                 <p className="register-link"><a href = "/register">Register</a></p>
 
             </div>

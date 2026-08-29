@@ -1,15 +1,21 @@
 import { useState } from "react";
 import "./Register.css";
-import {register} from "../api/auth.ts";
+import {login, register} from "../api/auth.ts";
+import {useAuth} from "../api/AuthContext.tsx";
 
 function Register() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passComf, setPassComf] = useState("");
+    const { loginUser } = useAuth();
+    const [success, setSuccess] = useState("")
 
+    async function handleRegister(e: React.FormEvent) {
 
-    async function handleRegister() {
+        e.preventDefault();
+
+        console.log("1. Starting registration");
 
         try {
 
@@ -19,13 +25,25 @@ function Register() {
                 password
             );
 
-            console.log("Account created");
+            console.log("2. Registration finished");
+            setSuccess("Registered!")
+            const token = await login(
+                email,
+                password
+            );
 
-        } catch(error) {
+            loginUser();
 
-            console.error(error);
+            console.log("3. Logged in:", token);
+            setSuccess("Registered and logged in!")
+
+        } catch (error) {
+
+            console.error("REGISTER/LOGIN ERROR:", error);
+            setSuccess("Failed to register")
 
         }
+
     }
 
 
@@ -87,6 +105,10 @@ function Register() {
                     <button type="submit">
                         Register
                     </button>
+
+                    <p>
+                        {success}
+                    </p>
 
                 </form>
 
