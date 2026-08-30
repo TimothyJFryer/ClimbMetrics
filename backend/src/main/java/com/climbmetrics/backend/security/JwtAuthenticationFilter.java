@@ -1,6 +1,7 @@
 package com.climbmetrics.backend.security;
 
 import com.climbmetrics.backend.service.JwtService;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -32,30 +33,33 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
 
         System.out.println("JWT FILTER RUNNING");
+        try {
+            String token = extractTokenFromCookie(request);
 
-        String token = extractTokenFromCookie(request);
-
-        System.out.println("TOKEN: " + token);
+            System.out.println("TOKEN: " + token);
 
 
-        if (token != null && jwtService.isTokenValid(token, jwtService.extractEmail(token))) {
+            if (token != null && jwtService.isTokenValid(token, jwtService.extractEmail(token))) {
 
-            String email = jwtService.extractEmail(token);
+                String email = jwtService.extractEmail(token);
 
-            System.out.println("EMAIL: " + email);
+                System.out.println("EMAIL: " + email);
 
-            UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(
-                            email,
-                            null,
-                            Collections.emptyList()
-                    );
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(
+                                email,
+                                null,
+                                Collections.emptyList()
+                        );
 
-            SecurityContextHolder.getContext()
-                    .setAuthentication(authentication);
+                SecurityContextHolder.getContext()
+                        .setAuthentication(authentication);
 
-            System.out.println("AUTHENTICATED: " +
-                    SecurityContextHolder.getContext().getAuthentication());
+                System.out.println("AUTHENTICATED: " +
+                        SecurityContextHolder.getContext().getAuthentication());
+            }
+        } catch (JwtException e) {
+            System.out.println("Invalid JWT");
         }
 
         filterChain.doFilter(request, response);

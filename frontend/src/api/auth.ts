@@ -29,3 +29,26 @@ export async function register(
 
     return response.data;
 }
+
+export async function editProfile(
+    username: string,
+    email: string,
+    description: string,
+) {
+
+    const response = await api.put(
+        "/profile/editProfile",
+        {
+            username,
+            email,
+            description
+        }
+    );
+
+    return response.data
+
+}
+
+export async function logout() {
+    await api.post("/auth/logout");
+}

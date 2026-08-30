@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register.tsx";
 import Profile from "./pages/Profile.tsx";
+import EditProfile from "./pages/EditProfile.tsx";
 
 
 function App() {
@@ -34,6 +35,11 @@ function App() {
                 <Route
                     path="/profile"
                     element={<Profile />}
+                />
+
+                <Route
+                    path="/profile/edit"
+                    element={<EditProfile />}
                 />
 
             </Routes>

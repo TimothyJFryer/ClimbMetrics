@@ -1,14 +1,11 @@
 package com.climbmetrics.backend.service;
 
-import com.climbmetrics.backend.dto.LoginRequest;
-import com.climbmetrics.backend.dto.RegisterRequest;
+import com.climbmetrics.backend.dto.EditRequest;
 import com.climbmetrics.backend.dto.UserProfileResponse;
 import com.climbmetrics.backend.entity.User;
 import com.climbmetrics.backend.exception.NoSuchUserException;
 import com.climbmetrics.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Locale;
 
 @Service
 public class UserService {
@@ -35,5 +32,18 @@ public class UserService {
                 user.getTotalClimbs(),
                 user.getTotalSessions()
         );
+    }
+
+    public void editProfile(String currentEmail, EditRequest request) {
+
+        User user = userRepository.findByEmail(currentEmail).orElseThrow(NoSuchUserException::new);
+
+        user.setUsername(request.getUsername());
+
+        user.setDescription(request.getDescription());
+
+        user.setEmail(request.getEmail());
+
+        userRepository.save(user);
     }
 }

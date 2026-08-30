@@ -37,7 +37,7 @@ public class AuthController {
 
         ResponseCookie cookie = ResponseCookie.from("accessToken", "")
                 .httpOnly(true)
-                .secure(true)
+                .secure(false)
                 .sameSite("Lax")
                 .path("/")
                 .maxAge(0)
@@ -85,5 +85,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("User registered successfully");
     }
+
+
 
 }

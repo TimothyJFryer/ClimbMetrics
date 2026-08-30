@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import api from "../api/axios";
+import {logout} from "./auth.ts";
 
 type AuthContextType = {
     isLoggedIn: boolean;
@@ -29,8 +30,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIsLoggedIn(true);
     }
 
-    function logoutUser() {
-        setIsLoggedIn(false);
+
+
+    async function logoutUser() {
+
+        try {
+
+            await logout();
+
+            setIsLoggedIn(false);
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
     }
 
     return (

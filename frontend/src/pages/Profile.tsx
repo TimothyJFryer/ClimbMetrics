@@ -1,6 +1,7 @@
 import "./Profile.css";
 import { useEffect, useState } from "react";
 import api from "../api/axios";
+import {Link} from "react-router-dom";
 
 interface UserProfile {
     id: number;
@@ -51,7 +52,9 @@ function Profile() {
                 </div>
 
                 <button className="edit-button">
-                    Edit Profile
+                    <Link to="/profile/edit" className="editProfile-button">
+                        Edit Profile
+                    </Link>
                 </button>
 
             </section>

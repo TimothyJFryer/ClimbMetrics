@@ -1,0 +1,45 @@
+.edit-profile-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 80px;
+}
+
+.edit-profile-card {
+    width: 400px;
+    padding: 30px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.edit-profile-card h1 {
+    margin-bottom: 8px;
+}
+
+.edit-profile-card .subtitle {
+    margin-bottom: 25px;
+    color: #666;
+}
+
+.edit-profile-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.edit-profile-card input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.edit-profile-card button {
+    padding: 11px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
