@@ -49,6 +49,38 @@ export async function editProfile(
 
 }
 
+export async function getClimbHistory() {
+    const response = await api.get("/climbs");
+
+    return response.data;
+}
+
 export async function logout() {
     await api.post("/auth/logout");
+}
+
+
+export async function logClimb(
+    date: string,
+    grade: string,
+    style: string,
+    attempts: number,
+    completed: boolean
+
+) {
+    const response = await api.post("/climbs/log",
+        {
+            date,
+            grade,
+            style,
+            attempts,
+            completed
+        })
+    return response.data;
+}
+
+export async function getStats() {
+    const response = await api.get("/climbs/stats");
+
+    return response.data;
 }

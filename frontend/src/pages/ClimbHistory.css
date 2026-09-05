@@ -1,0 +1,120 @@
+.climb-history-page {
+    min-height: 100vh;
+    padding: 3rem 1.5rem;
+    background: #f3f4f6;
+}
+
+.climb-history-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.climb-history-container h1 {
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.climb-history-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+/* Individual climb */
+
+.climb-item {
+    background: white;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 16px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.climb-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.climb-item-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.climb-date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Details */
+
+.climb-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.climb-detail {
+    background: #f9fafb;
+    padding: 0.8rem;
+    border-radius: 8px;
+}
+
+.climb-detail-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 0.2rem;
+}
+
+.climb-detail-value {
+    font-weight: 600;
+}
+
+/* Notes */
+
+.climb-notes {
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    color: #444;
+}
+
+.climb-notes strong {
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+/* Completed status */
+
+.climb-completed {
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.climb-completed.completed {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.climb-completed.failed {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Empty state */
+
+.no-climbs {
+    background: white;
+    padding: 3rem;
+    text-align: center;
+    border-radius: 16px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    color: #666;
+}
+
+
+

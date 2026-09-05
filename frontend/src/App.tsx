@@ -7,6 +7,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register.tsx";
 import Profile from "./pages/Profile.tsx";
 import EditProfile from "./pages/EditProfile.tsx";
+import ClimbLog from "./pages/ClimbLog.tsx";
+import ClimbHistory from "./pages/ClimbHistory.tsx";
+import ProgressStats from "./pages/ProgressStats.tsx";
 
 
 function App() {
@@ -40,6 +43,21 @@ function App() {
                 <Route
                     path="/profile/edit"
                     element={<EditProfile />}
+                />
+
+                <Route
+                    path="/climbs/log"
+                    element={<ClimbLog />}
+                />
+
+                <Route
+                    path="/climbs"
+                    element={<ClimbHistory />}
+                />
+
+                <Route
+                    path="/climbs/stats"
+                    element={<ProgressStats/>}
                 />
 
             </Routes>
