@@ -45,4 +45,27 @@ public class GlobalExceptionHandler {
                 ));
     }
 
+    @ExceptionHandler(NoSuchClimbException.class)
+    public ResponseEntity<ApiError> handleNonExistantClimb(
+            NoSuchClimbException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ApiError(
+                        "NO_CLIMB",
+                        ex.getMessage()
+                ));
+    }
+
+    @ExceptionHandler(UnauthorizedUserException.class)
+    public ResponseEntity<ApiError> handleUnauthorizedUser(
+            UnauthorizedUserException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(new ApiError(
+                        "UNAUTHORIZED",
+                        ex.getMessage()
+                ));
+    }
 }

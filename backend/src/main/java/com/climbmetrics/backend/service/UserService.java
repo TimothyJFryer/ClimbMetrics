@@ -16,6 +16,13 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public Long getUserIdByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(NoSuchUserException::new);
+
+        return user.getId();
+    }
+
     public UserProfileResponse getProfile(String email) {
 
         User user = userRepository
