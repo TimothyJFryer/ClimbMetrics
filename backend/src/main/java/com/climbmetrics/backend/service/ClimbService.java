@@ -5,15 +5,19 @@ import com.climbmetrics.backend.dto.LogClimbRequest;
 import com.climbmetrics.backend.dto.StatsResponse;
 import com.climbmetrics.backend.dto.UserProfileResponse;
 import com.climbmetrics.backend.entity.Climb;
+import com.climbmetrics.backend.exception.NoSuchClimbException;
 import com.climbmetrics.backend.exception.NoSuchUserException;
+import com.climbmetrics.backend.exception.UnauthorizedUserException;
 import com.climbmetrics.backend.repository.ClimbRepository;
 import com.climbmetrics.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,7 +34,7 @@ public class ClimbService {
     };
 
     public List<ClimbsResponse> getClimbs(Long userId) {
-        List<Climb> climbs = climbRepository.findAllByUserId(userId);
+        List<Climb> climbs = climbRepository.findAllByUserIdOrderByDateDescTimestampDesc(userId);
         return climbs.stream()
                 .map(climb -> new ClimbsResponse(
                         climb.getId(),
@@ -46,6 +50,25 @@ public class ClimbService {
                 .toList();
     };
 
+
+    public void editClimb(Long userId, LogClimbRequest logClimbRequest) {
+        Climb climb = climbRepository.findById(logClimbRequest.id())
+                .orElseThrow(NoSuchClimbException::new);
+
+        if (!climb.getUserId().equals(userId)) {
+            throw new UnauthorizedUserException();
+        }
+
+        climb.setGrade(logClimbRequest.grade());
+        climb.setDate(logClimbRequest.date());
+        climb.setCompleted(logClimbRequest.completed());
+        climb.setStyle(logClimbRequest.style());
+        climb.setNotes(logClimbRequest.notes());
+        climb.setAttempts(logClimbRequest.attempts());
+
+        climbRepository.save(climb);
+    }
+
     public void logClimb(Long userID, LogClimbRequest logClimbRequest) {
         Climb climb = new Climb();
 
@@ -55,9 +78,22 @@ public class ClimbService {
         climb.setCompleted(logClimbRequest.completed());
         climb.setStyle(logClimbRequest.style());
         climb.setAttempts(logClimbRequest.attempts());
+        climb.setNotes(logClimbRequest.notes());
+        climb.setTimestamp(LocalDateTime.now());
 
 
         climbRepository.save(climb);
+    }
+
+    public void deleteClimb(Long userId, Long climbId) {
+        Climb climb = climbRepository.findById(climbId)
+                .orElseThrow(NoSuchClimbException::new);
+
+        if (!climb.getUserId().equals(userId)) {
+            throw new UnauthorizedUserException();
+        }
+
+        climbRepository.delete(climb);
     }
 
     private int getVGradeNumber(String grade) {
@@ -65,7 +101,7 @@ public class ClimbService {
     }
 
     public StatsResponse getStatistics(Long userId) {
-        List<Climb> climbs = climbRepository.findAllByUserId(userId);
+        List<Climb> climbs = climbRepository.findAllByUserIdOrderByDateDescTimestampDesc(userId);
 
 
         int total = climbs.size();

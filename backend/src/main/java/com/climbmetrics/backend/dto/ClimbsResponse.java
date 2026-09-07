@@ -1,5 +1,7 @@
 package com.climbmetrics.backend.dto;
 
+import java.time.LocalDateTime;
+
 public record ClimbsResponse(
         Long id,
         Long userId,
@@ -9,6 +11,6 @@ public record ClimbsResponse(
         int attempts,
         boolean completed,
         String notes,
-        String created_at
+        LocalDateTime created_at
 
 ) {}

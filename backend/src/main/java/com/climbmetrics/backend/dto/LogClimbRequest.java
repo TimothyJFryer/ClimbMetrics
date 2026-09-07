@@ -3,6 +3,8 @@ package com.climbmetrics.backend.dto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDateTime;
+
 public record LogClimbRequest(
         Long id,
         Long userId,
@@ -19,6 +21,6 @@ public record LogClimbRequest(
 
         boolean completed,
         String notes,
-        String created_at
+        LocalDateTime created_at
 
 ) {}

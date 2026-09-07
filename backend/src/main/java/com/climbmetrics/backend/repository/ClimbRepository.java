@@ -9,5 +9,6 @@ import java.util.Optional;
 
 public interface ClimbRepository extends JpaRepository<Climb, Long> {
 
-    List<Climb> findAllByUserId(Long userId);
+    List<Climb> findAllByUserIdOrderByDateDescTimestampDesc(Long userId);
+
 }

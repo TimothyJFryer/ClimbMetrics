@@ -84,3 +84,22 @@ export async function getStats() {
 
     return response.data;
 }
+
+
+export async function updateClimb(climb: {
+    id: number;
+    date: string;
+    grade: string;
+    style: string;
+    attempts: number;
+    completed: boolean;
+}) {
+    const response = await api.put("/climbs/edit", climb);
+
+    return response.data;
+}
+
+export async function deleteClimb(climbId: number) {
+    const response = await api.delete(`/climbs/${climbId}`);
+    return response.data;
+}

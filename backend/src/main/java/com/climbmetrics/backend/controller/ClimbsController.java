@@ -62,4 +62,28 @@ public class ClimbsController {
                 climbService.getStatistics(userId)
         );
     }
+
+    @PutMapping("/edit")
+    public ResponseEntity<String> editClimb(Authentication authentication, @RequestBody @Valid LogClimbRequest logRequest) {
+        String email = authentication.getName();
+        Long userId = userService.getUserIdByEmail(email);
+
+        climbService.editClimb(userId, logRequest);
+
+        return ResponseEntity.ok("Climb updated successfully");
+
+    }
+
+    @DeleteMapping("/{climbId}")
+    public ResponseEntity<String> deleteClimb(
+            Authentication authentication,
+            @PathVariable Long climbId) {
+
+        String email = authentication.getName();
+        Long userId = userService.getUserIdByEmail(email);
+
+        climbService.deleteClimb(userId, climbId);
+
+        return ResponseEntity.ok("Climb deleted successfully");
+    }
 }
