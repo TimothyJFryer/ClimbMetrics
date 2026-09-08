@@ -68,4 +68,28 @@ public class GlobalExceptionHandler {
                         ex.getMessage()
                 ));
     }
+
+    @ExceptionHandler(StorageException.class)
+    public ResponseEntity<ApiError> handleStorageException(
+            StorageException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.INSUFFICIENT_STORAGE)
+                .body(new ApiError(
+                        "UNAUTHORIZED",
+                        ex.getMessage()
+                ));
+    }
+
+    @ExceptionHandler(StorageFileNotFoundException.class)
+    public ResponseEntity<ApiError> handleStorageFileNotFound(
+            StorageFileNotFoundException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ApiError(
+                        "NOT_FOUND",
+                        ex.getMessage()
+                ));
+    }
 }

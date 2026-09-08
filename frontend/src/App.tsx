@@ -10,6 +10,8 @@ import EditProfile from "./pages/EditProfile.tsx";
 import ClimbLog from "./pages/ClimbLog.tsx";
 import ClimbHistory from "./pages/ClimbHistory.tsx";
 import ProgressStats from "./pages/ProgressStats.tsx";
+import VideoUpload from "./pages/VideoUpload.tsx";
+import ClimbDetails from "./pages/ClimbDetails.tsx";
 
 
 function App() {
@@ -58,6 +60,17 @@ function App() {
                 <Route
                     path="/climbs/stats"
                     element={<ProgressStats/>}
+                />
+
+
+                <Route
+                    path="/video-upload"
+                    element={<VideoUpload/>}
+                />
+
+                <Route
+                    path="/climbs/:id"
+                    element={<ClimbDetails/>}
                 />
 
             </Routes>

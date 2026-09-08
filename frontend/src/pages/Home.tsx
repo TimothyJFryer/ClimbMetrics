@@ -1,6 +1,8 @@
 import "./Home.css";
+import {useNavigate} from "react-router-dom";
 
 function Home() {
+    const navigate = useNavigate();
     return (
         <div className="home">
 
@@ -20,12 +22,13 @@ function Home() {
                     </p>
 
                     <div className="hero-buttons">
-                        <button className="primary-button">
-                            Analyse a Climb
+
+                        <button className="primary-button" onClick={() => navigate(`/climbs/log`)}>
+                            Log a climb
                         </button>
 
-                        <button className="secondary-button">
-                            View Progress
+                        <button className="secondary-button" onClick={() => navigate(`/climbs`)}>
+                            View History
                         </button>
                     </div>
 

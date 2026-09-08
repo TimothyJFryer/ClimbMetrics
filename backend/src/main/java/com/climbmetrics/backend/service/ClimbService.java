@@ -50,6 +50,28 @@ public class ClimbService {
                 .toList();
     };
 
+    public ClimbsResponse getClimb(Long userId, Long climbId) {
+
+        Climb climb = climbRepository.findById(climbId)
+                .orElseThrow(NoSuchClimbException::new);
+
+        if (!climb.getUserId().equals(userId)) {
+            throw new UnauthorizedUserException();
+        }
+
+        return new ClimbsResponse(
+                climb.getId(),
+                climb.getUserId(),
+                climb.getDate(),
+                climb.getGrade(),
+                climb.getStyle(),
+                climb.getAttempts(),
+                climb.isCompleted(),
+                climb.getNotes(),
+                climb.getTimestamp()
+        );
+    }
+
 
     public void editClimb(Long userId, LogClimbRequest logClimbRequest) {
         Climb climb = climbRepository.findById(logClimbRequest.id())
@@ -160,4 +182,6 @@ public class ClimbService {
                 averageAttemptsByGrade
         );
     }
+
+
 }
