@@ -1,10 +1,16 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://${DB_HOST}:${DB_PORT:5432}/${DB_NAME}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+  application:
+    name: backend
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 105MB
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+jwt:
+  secret: ${JWT_SECRET:0qmdiZ5a1FiUxgRfiiecbOHKh1IL_X-muhrzXRDS2K4}

@@ -1,0 +1,18 @@
+spring:
+  config:
+    activate:
+      on-profile: s3
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT:5432}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+aws:
+  region: ${AWS_REGION:eu-west-2}
+
+  s3:
+    bucket: ${S3_BUCKET}
+
+storage:
+  type: s3

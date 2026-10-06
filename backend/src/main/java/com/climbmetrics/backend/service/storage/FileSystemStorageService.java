@@ -2,6 +2,7 @@ package com.climbmetrics.backend.service.storage;
 
 import com.climbmetrics.backend.exception.StorageException;
 import com.climbmetrics.backend.exception.StorageFileNotFoundException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
 @Service
+@Profile("local")
 public class FileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
