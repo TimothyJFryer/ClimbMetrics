@@ -1,0 +1,19 @@
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+  datasource:
+    url: jdbc:aws-wrapper:postgresql://${DB_HOST}:5432/${DB_NAME}?sslmode=require
+    username: ${DB_USERNAME}
+    driver-class-name: software.amazon.jdbc.Driver
+
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 0
+      idle-timeout: 60000
+      connection-timeout: 30000
+      max-lifetime: 1200000
+      data-source-properties:
+        wrapperPlugins: iam
+        iamRegion: eu-west-2

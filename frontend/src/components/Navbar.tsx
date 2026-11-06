@@ -13,13 +13,11 @@ function Navbar() {
             </div>
 
             <div className="nav-links">
-                <a href="/">Home</a>
-                <a href="/dashboard">Dashboard</a>
-                <a href="/climbs/log">Log</a>
-                <a href="/projects">Projects</a>
-                <a href="/profile">Profile</a>
-                <a href="/climbs">Climb History</a>
-                <a href="/climbs/stats">Climb Stats</a>
+                <Link to="/">Home</Link>
+                <Link to="/climbs/log">Log</Link>
+                <Link to="/profile">Profile</Link>
+                <Link to="/climbs">Climb History</Link>
+                <Link to="/climbs/stats">Climb Stats</Link>
             </div>
 
             {isLoggedIn ? (

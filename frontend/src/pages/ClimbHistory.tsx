@@ -1,7 +1,8 @@
 import "./ClimbHistory.css";
 import {useEffect, useState} from "react";
-import {deleteClimb, getClimbHistory, updateClimb} from "../api/auth.ts";
+import {deleteClimb, getClimbHistory, updateClimb, uploadVideo} from "../api/auth.ts";
 import type {Climb} from "../types/Climb.ts";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -13,6 +14,9 @@ function ClimbHistory() {
     const [error, setError] = useState<string | null>(null);
     const [editingId, setEditingId] = useState<number | null>(null);
     const [editingClimb, setEditingClimb] = useState<Climb | null>(null);
+    const [message, setMessage] = useState("");
+    const [uploading, setUploading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function loadClimbs() {
@@ -73,6 +77,7 @@ function ClimbHistory() {
             setEditingClimb(null);
 
         } catch (error) {
+            setMessage("Failed to update climb history");
             console.error("Failed to update climb:", error);
         }
 
@@ -91,6 +96,23 @@ function ClimbHistory() {
         }
 
     }
+
+
+
+
+    const handleUpload = async (file: File, climbId: number) => {
+        try {
+            setUploading(true);
+
+            await uploadVideo(climbId, file);
+
+            // success handling
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setUploading(false);
+        }
+    };
 
     const updateAttempts = async (climb: Climb, change: number) => {
         const newAttempts = Math.max(1, climb.attempts + change);
@@ -380,6 +402,8 @@ function ClimbHistory() {
                                             >
                                                 Cancel
                                             </button>
+
+
                                         </>
                                     ) : (
                                         <>
@@ -399,8 +423,39 @@ function ClimbHistory() {
                                         >
                                             Delete
                                         </button>
+
                                         </>
 
+                                    )}
+                                    <label className="upload-button">
+                                        {uploading ? "Uploading..." : "Upload Video"}
+
+                                        <input
+                                            type="file"
+                                            accept="video/*"
+                                            hidden
+                                            disabled={uploading}
+                                            onChange={(e) => {
+                                                const selectedFile = e.target.files?.[0];
+
+                                                if (!selectedFile) {
+                                                    return;
+                                                }
+
+                                                handleUpload(selectedFile, climb.id);
+                                            }}
+                                        />
+                                    </label>
+
+                                    <button
+                                        className="details-button"
+                                        onClick={() => navigate(`/climbs/${climb.id}`)}
+                                    >
+                                        View
+                                    </button>
+
+                                    {message && (
+                                        <p>{message}</p>
                                     )}
 
                                 </div>

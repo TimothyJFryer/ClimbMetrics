@@ -1,0 +1,13 @@
+spring:
+  config:
+    activate:
+      on-profile: s3
+
+aws:
+  region: ${AWS_REGION:eu-west-2}
+
+  s3:
+    bucket: ${S3_BUCKET}
+
+storage:
+  type: s3

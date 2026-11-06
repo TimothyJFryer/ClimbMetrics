@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Login.css";
 import {login} from "../api/auth.ts";
+import {Link} from "react-router-dom";
 
 function Login() {
 
@@ -90,7 +91,7 @@ function Login() {
                 <p>
                     {success}
                 </p>
-                <p className="register-link"><a href = "/register">Register</a></p>
+                <p className="register-link"><Link to = "/register">Register</Link></p>
 
             </div>
 

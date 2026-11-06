@@ -103,3 +103,35 @@ export async function deleteClimb(climbId: number) {
     const response = await api.delete(`/climbs/${climbId}`);
     return response.data;
 }
+
+export async function uploadVideo(
+    climbId: number,
+    file: File
+) {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await api.post(
+        `/${climbId}/video`,
+        formData
+    );
+
+    return response.data;
+}
+
+export async function getClimb(climbId: number) {
+    const response = await api.get(`/climbs/${climbId}`);
+
+    return response.data;
+}
+
+export async function getVideo(climbId: number) {
+    const response = await api.get(
+        `/videos/${climbId}`,
+        {
+            responseType: "blob"
+        }
+    );
+
+    return response.data;
+}

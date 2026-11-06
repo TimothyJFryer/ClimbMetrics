@@ -38,6 +38,19 @@ public class ClimbsController {
         );
     }
 
+    @GetMapping("/{climbId}")
+    public ResponseEntity<ClimbsResponse> getClimb(
+            Authentication authentication,
+            @PathVariable Long climbId) {
+
+        String email = authentication.getName();
+        Long userId = userService.getUserIdByEmail(email);
+
+        ClimbsResponse climb = climbService.getClimb(userId, climbId);
+
+        return ResponseEntity.ok(climb);
+    }
+
     @PostMapping("/log")
     public ResponseEntity<String> logClimb(Authentication authentication, @RequestBody @Valid LogClimbRequest logRequest) {
 

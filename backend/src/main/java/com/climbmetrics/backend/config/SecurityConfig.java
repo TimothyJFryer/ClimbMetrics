@@ -38,6 +38,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/test/**").permitAll()
+                        .requestMatchers("/health").permitAll()
                         .anyRequest().authenticated()
                 )
 
@@ -66,7 +67,13 @@ public class SecurityConfig {
 
 
         configuration.setAllowedOrigins(
-                List.of("http://localhost:5173")
+                List.of("http://localhost:5173","https://djjlmfkvii1y4.cloudfront.net","https://climbmetrics.timothyfryer.dev")
+        );
+
+        System.out.println(
+                "=== CORS ALLOWED ORIGINS: " +
+                        configuration.getAllowedOrigins() +
+                        " ==="
         );
 
 

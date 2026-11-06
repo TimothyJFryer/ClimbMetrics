@@ -1,10 +1,16 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/climbmetrics
-    username: postgres
-    password: admin
+  application:
+    name: backend
+
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 105MB
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+jwt:
+  secret: ${JWT_SECRET:0qmdiZ5a1FiUxgRfiiecbOHKh1IL_X-muhrzXRDS2K4}
