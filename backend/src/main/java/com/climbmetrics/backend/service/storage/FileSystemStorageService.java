@@ -17,7 +17,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
 @Service
-@Profile("local")
+@Profile("!s3")
 public class FileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
