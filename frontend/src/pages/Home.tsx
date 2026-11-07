@@ -11,7 +11,7 @@ function Home() {
                 <div className="hero-content">
 
                     <h1>
-                        Understand your climbing.
+                        WOW LOOK YOUR CI CD WORKS TIM WELL DONE
                         <br />
                         Improve every attempt.
                     </h1>
