@@ -11,7 +11,7 @@ function Home() {
                 <div className="hero-content">
 
                     <h1>
-                        WOW LOOK YOUR CI CD WORKS TIM WELL DONE
+                        aaaaaaaaaaaaaaaaaaaaaaaaaaa
                         <br />
                         Improve every attempt.
                     </h1>
