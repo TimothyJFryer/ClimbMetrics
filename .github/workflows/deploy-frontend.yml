@@ -40,6 +40,19 @@ jobs:
           echo "Branch: $GITHUB_REF"
           echo "Event: $GITHUB_EVENT_NAME"
 
+      - name: Inspect OIDC token claims
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const token = await core.getIDToken('sts.amazonaws.com');
+            const payload = JSON.parse(
+              Buffer.from(token.split('.')[1], 'base64url').toString()
+            );
+            
+            console.log('Issuer:', payload.iss);
+            console.log('Audience:', payload.aud);
+            console.log('Subject:', payload.sub);
+
       # 5. Authenticate with AWS using OIDC
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
