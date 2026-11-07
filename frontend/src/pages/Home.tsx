@@ -11,7 +11,7 @@ function Home() {
                 <div className="hero-content">
 
                     <h1>
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        i love big bastty dan
                         <br />
                         Improve every attempt.
                     </h1>
