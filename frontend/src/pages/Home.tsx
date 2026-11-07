@@ -11,7 +11,7 @@ function Home() {
                 <div className="hero-content">
 
                     <h1>
-                        i love big bastty dan
+                        Understand your climbing.
                         <br />
                         Improve every attempt.
                     </h1>
