@@ -1,0 +1,78 @@
+
+{
+    "family": "climbmetrics-backend-td",
+    "containerDefinitions": [
+        {
+            "name": "Main",
+            "image": "IMAGE_PLACEHOLDER",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "hostPort": 8080,
+                    "protocol": "tcp",
+                    "name": "main-8080-tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "S3_BUCKET",
+                    "value": "climbmetrics-video-bucket"
+                },
+                {
+                    "name": "AWS_REGION",
+                    "value": "eu-west-2"
+                },
+                {
+                    "name": "DB_USERNAME",
+                    "value": "climbmetrics_app"
+                },
+                {
+                    "name": "DB_PORT",
+                    "value": "5432"
+                },
+                {
+                    "name": "SPRING_PROFILES_ACTIVE",
+                    "value": "docker,s3"
+                },
+                {
+                    "name": "DB_NAME",
+                    "value": "postgres"
+                },
+                {
+                    "name": "DB_HOST",
+                    "value": "database-1.cluster-cjc6go00uy92.eu-west-2.rds.amazonaws.com"
+                }
+            ],
+            "secrets": [
+                {
+                    "name": "JWT_SECRET",
+                    "valueFrom": "arn:aws:secretsmanager:eu-west-2:032064441757:secret:prod/climbmetrics/jwt-RxBtV1"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/climbmetrics-backend-td",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "eu-west-2",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::032064441757:role/climbmetrics-backend-task-role",
+    "executionRoleArn": "arn:aws:iam::032064441757:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    }
+}
